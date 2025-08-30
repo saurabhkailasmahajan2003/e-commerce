@@ -946,6 +946,117 @@
                 width: 100%;
             }
         }
+        /* ===== Responsive Design ===== */
+
+/* --- Tablet View --- */
+@media (max-width: 1024px) {
+    header {
+        gap: 12px;
+        padding: 12px 16px;
+    }
+
+    /* Hide the desktop navigation and rely on a mobile menu button (not included in CSS) */
+    nav {
+        display: none;
+    }
+
+    /* Adjust grids to be 2-column layouts */
+    .card,
+    .service,
+    .policy-card {
+        grid-column: span 6;
+    }
+
+    .footgrid>div {
+        grid-column: span 6;
+    }
+
+    .brand-pill {
+        grid-column: span 4;
+    }
+
+    .contact-container {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* --- Mobile View --- */
+@media (max-width: 768px) {
+    header {
+        flex-wrap: wrap;
+    }
+
+    .search {
+        order: 1; /* Moves search bar to the next line */
+        width: 100%;
+        max-width: 100%;
+    }
+
+    .cart-btn {
+        margin-left: 0;
+    }
+
+    .hero,
+    .section,
+    footer {
+        margin: 16px;
+        padding: 16px;
+    }
+
+    .slides img {
+        height: 250px; /* Taller hero on mobile for better impact */
+    }
+    
+    .section h2 {
+        font-size: 20px;
+    }
+    
+    .sub {
+        font-size: 13px;
+    }
+
+    /* Stack all multi-column grids into a single column */
+    .card,
+    .service,
+    .policy-card,
+    .footgrid>div,
+    .brand-pill {
+        grid-column: span 12;
+    }
+    
+    .drawer {
+        width: 100%;
+        right: -100%;
+    }
+}
+
+/* --- Small Mobile View --- */
+@media (max-width: 480px) {
+    .slides img {
+        height: 220px;
+    }
+
+    .card .body,
+    .section,
+    header {
+        padding: 12px;
+    }
+
+    .title {
+        font-size: 15px;
+        min-height: 40px;
+    }
+
+    .btn {
+        font-size: 13px;
+        padding: 10px;
+    }
+
+    .deal-chip {
+        font-size: 12px;
+        padding: 6px 10px;
+    }
+}
     </style>
 </head>
 
