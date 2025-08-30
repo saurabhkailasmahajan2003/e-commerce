@@ -899,7 +899,129 @@
                 grid-column: span 4;
             }
         }
+/* ===== Responsive Design ===== */
 
+/* --- Tablet View (for devices like iPads) --- */
+@media (max-width: 1024px) {
+    header {
+        gap: 12px;
+        padding: 12px 16px;
+    }
+
+    /* Hide the complex desktop navigation on tablets */
+    nav {
+        display: none;
+    }
+
+    .section {
+        margin: 20px;
+        padding: 20px;
+    }
+
+    /* Adjust grids to show 2 or 3 columns */
+    .card {
+        grid-column: span 6; /* 2 cards per row */
+    }
+    
+    .footgrid>div {
+        grid-column: span 6;
+    }
+
+    .brand-pill {
+        grid-column: span 4; /* 3 pills per row */
+    }
+
+    .contact-container {
+        grid-template-columns: 1fr; /* Stack contact info and map */
+    }
+}
+
+/* --- Mobile View (for most smartphones) --- */
+@media (max-width: 768px) {
+    header {
+        flex-wrap: wrap; /* Allow header items to wrap */
+    }
+
+    .search {
+        order: 1; /* Move search bar to the next line */
+        width: 100%;
+        max-width: 100%;
+    }
+
+    .cart-btn {
+        margin-left: 0;
+    }
+
+    .hero,
+    .section,
+    footer {
+        margin: 16px;
+        padding: 16px;
+    }
+
+    .slides img {
+        height: 250px; /* Adjust hero height for mobile */
+    }
+    
+    .section h2 {
+        font-size: 20px;
+    }
+    
+    .sub {
+        font-size: 13px;
+    }
+
+    /* Stack all grid items into a single column for easy scrolling */
+    .card,
+    .footgrid>div,
+    .brand-pill {
+        grid-column: span 12;
+    }
+    
+    .drawer {
+        width: 100%;
+        right: -100%; /* Ensure it's fully off-screen */
+    }
+
+    .policy-grid {
+        /* On mobile, a single column is better than auto-fit */
+        grid-template-columns: 1fr;
+    }
+}
+
+/* --- Small Mobile View (for smaller devices) --- */
+@media (max-width: 480px) {
+    .slides img {
+        height: 220px;
+    }
+
+    .card .body,
+    .section,
+    header {
+        padding: 12px;
+    }
+
+    .title {
+        font-size: 15px;
+        min-height: 40px;
+    }
+
+    .btn {
+        font-size: 13px;
+        padding: 10px;
+    }
+
+    .deal-chip {
+        font-size: 12px;
+        padding: 6px 10px;
+        white-space: nowrap;
+    }
+
+    /* Make buttons in card actions stack vertically */
+    .card-actions {
+        grid-template-columns: 1fr;
+    }
+}
 
     </style>
 </head>
