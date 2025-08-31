@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 
 <head>
     <meta charset="UTF--8" />
@@ -54,7 +54,6 @@
         /* General Styles */
         * {
             box-sizing: border-box;
-            transition: all 0.2s ease-in-out;
         }
 
         html,
@@ -64,6 +63,11 @@
             color: var(--text);
             font-family: 'Segoe UI', Arial, sans-serif;
             line-height: 1.6;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        body.loading {
+            overflow: hidden;
         }
 
         a {
@@ -80,9 +84,66 @@
             font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
             font-size: 1.5rem;
             line-height: 1;
+            transition: all 0.2s ease-in-out;
         }
 
-        /* Header, Hero, Featured Deals */
+        /* ===== NEW: Pre-loader Styles ===== */
+        #preloader {
+            position: fixed;
+            inset: 0;
+            z-index: 9999;
+            background: #0D0F12;
+            display: grid;
+            place-content: center;
+            transition: opacity 0.5s ease, visibility 0.5s ease;
+        }
+
+        #preloader.fade-out {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .loader-content {
+            color: #B8860B;
+            font-family: 'Courier New', Courier, monospace;
+            text-align: center;
+        }
+
+        .loader-text {
+            font-size: 1.5rem;
+            font-weight: bold;
+            overflow: hidden;
+            white-space: nowrap;
+            border-right: 0.15em solid #FFD700;
+            width: 0;
+            animation: typing 2s steps(16, end) forwards, blink-caret .75s step-end infinite;
+        }
+
+        @keyframes typing {
+            from {
+                width: 0
+            }
+
+            to {
+                width: 100%
+            }
+        }
+
+        @keyframes blink-caret {
+
+            from,
+            to {
+                border-color: transparent
+            }
+
+            50% {
+                border-color: #FFD700;
+            }
+        }
+
+        /* End of Pre-loader Styles */
+
+
         header {
             position: sticky;
             top: 0;
@@ -94,6 +155,7 @@
             align-items: center;
             gap: 16px;
             padding: 12px 24px;
+            transition: all 0.2s ease-in-out;
         }
 
         .brand {
@@ -336,6 +398,7 @@
             padding: 24px;
             border-radius: var(--radius);
             box-shadow: var(--shadow);
+            transition: all 0.2s ease-in-out;
         }
 
         .section h2 {
@@ -369,6 +432,7 @@
             flex-direction: column;
             position: relative;
             border: 1px solid transparent;
+            transition: all 0.2s ease-in-out;
         }
 
         .card:before {
@@ -407,14 +471,15 @@
             align-items: center;
             justify-content: center;
             border-bottom: 1px solid var(--chip);
-            padding: 10px;
         }
 
         .card .media img {
-            max-height: 100%;
-            object-fit: contain;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
 
+        /* UPDATED: object-fit */
         .card .body {
             padding: 16px;
             display: flex;
@@ -481,6 +546,7 @@
             font-weight: 700;
             font-size: 14px;
             width: 100%;
+            transition: all 0.2s ease-in-out;
         }
 
         .btn.primary {
@@ -502,7 +568,11 @@
             transform: translateY(1px);
         }
 
-        /* 1. Shop Categories - Horizontal Gallery */
+        .btn.added {
+            background: var(--ok);
+            cursor: default;
+        }
+
         .category-gallery {
             display: flex;
             gap: 16px;
@@ -532,6 +602,7 @@
             flex-direction: column;
             justify-content: flex-end;
             padding: 16px;
+            transition: all 0.2s ease-in-out;
         }
 
         .category-card:hover {
@@ -578,7 +649,6 @@
             opacity: 0.8;
         }
 
-        /* 2. Services - Accordion */
         .accordion {
             display: flex;
             flex-direction: column;
@@ -630,7 +700,6 @@
             color: var(--muted);
         }
 
-        /* 3. Brands - Marquee */
         .marquee {
             overflow: hidden;
             padding: 30px 0;
@@ -670,6 +739,7 @@
             width: 180px;
             filter: grayscale(100%) contrast(0.5);
             opacity: 0.6;
+            transition: all 0.2s ease-in-out;
         }
 
         .brand-logo:hover {
@@ -693,7 +763,6 @@
             }
         }
 
-        /* 4. Policies - Feature Grid */
         .policy-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -730,7 +799,6 @@
             font-size: 14px;
         }
 
-        /* 5. Contact - Split Layout with Map */
         .contact-container {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -775,7 +843,6 @@
             filter: invert(1) hue-rotate(180deg);
         }
 
-        /* 6. Cart Drawer (with Close Button) */
         .drawer {
             position: fixed;
             right: -400px;
@@ -856,7 +923,6 @@
             margin: 20px 0;
         }
 
-        /* Footer */
         footer {
             margin: 24px;
             background: var(--surface);
@@ -890,14 +956,10 @@
             font-size: 13px;
         }
 
-        /* ===== Responsive Design & Mobile UI ===== */
-
         .mobile-bottom-nav {
             display: none;
-            /* Hidden on desktop */
         }
 
-        /* --- Header Adjustments for Tablets --- */
         header .menu-btn {
             display: none;
             background: none;
@@ -906,8 +968,6 @@
             cursor: pointer;
             padding: 8px;
             border-radius: 8px;
-            margin-left: -12px;
-            margin-right: 8px;
         }
 
         header .menu-btn:hover {
@@ -915,7 +975,6 @@
             border-color: var(--brand);
         }
 
-        /* --- Tablet & Medium Screens (max-width: 1024px) --- */
         @media (max-width: 1024px) {
             header nav {
                 display: none;
@@ -923,7 +982,6 @@
 
             header .menu-btn {
                 display: block;
-                order: -1;
             }
 
             .card {
@@ -943,7 +1001,6 @@
             }
         }
 
-        /* --- Slide-out Menu (for Tablet) --- */
         .mobile-nav {
             position: fixed;
             top: 0;
@@ -1000,8 +1057,6 @@
             visibility: visible;
         }
 
-
-        /* --- Mobile Screens (max-width: 768px) --- */
         @media (max-width: 768px) {
             body {
                 padding-bottom: 70px;
@@ -1012,14 +1067,9 @@
                 gap: 12px;
             }
 
-            /* Hide desktop/tablet elements for a clean mobile header */
-            header .menu-btn,
+            header .brand,
             header nav,
             header .theme-toggle-btn {
-                display: none;
-            }
-
-            .brand .logo {
                 display: none;
             }
 
@@ -1102,9 +1152,27 @@
                 }
             }
 
+            .hero-overlay {
+                background: linear-gradient(180deg, transparent 40%, rgba(0, 0, 0, 0.85) 100%);
+                flex-wrap: wrap;
+                gap: 8px;
+                justify-content: center;
+                padding: 12px;
+            }
+
+            .deal-chip {
+                font-size: 11px;
+                padding: 5px 8px;
+                line-height: 1.4;
+            }
+
             .section {
                 margin: 16px;
                 padding: 16px;
+            }
+
+            .section h2 {
+                font-size: 20px;
             }
 
             .row {
@@ -1115,11 +1183,19 @@
                 grid-column: span 12;
             }
 
+            .card .title {
+                font-size: 15px;
+                min-height: 42px;
+            }
+
+            .price .now {
+                font-size: 1.1rem;
+            }
+
             .footgrid>div {
                 grid-column: span 12;
             }
 
-            /* --- Mobile Bottom Navigation --- */
             .mobile-bottom-nav {
                 display: flex;
                 position: fixed;
@@ -1129,7 +1205,7 @@
                 z-index: 1100;
                 background: var(--surface);
                 justify-content: space-around;
-                padding: 8px 0;
+                padding: 6px 4px;
                 border-top: 1px solid var(--chip);
                 box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
             }
@@ -1140,26 +1216,36 @@
                 align-items: center;
                 justify-content: center;
                 color: var(--muted);
-                gap: 4px;
+                gap: 2px;
+                padding: 4px 12px;
+                border-radius: 50px;
+                transition: color 0.2s ease, background-color 0.2s ease;
             }
 
             .mobile-bottom-nav .nav-text {
-                font-size: 12px;
+                font-size: 11px;
                 font-weight: 500;
             }
 
             .mobile-bottom-nav .material-symbols-outlined {
-                font-size: 24px;
+                font-size: 22px;
             }
 
             .mobile-bottom-nav .nav-link.active {
+                background-color: var(--chip);
                 color: var(--brand);
             }
         }
     </style>
 </head>
 
-<body>
+<body class="loading">
+    <div id="preloader">
+        <div class="loader-content">
+            <div class="loader-text">SaishTech OS...</div>
+        </div>
+    </div>
+
     <header>
         <div class="brand"><span class="badge">Saish</span>
             <div class="logo">Technologies</div>
@@ -1168,7 +1254,7 @@
             <span class="material-symbols-outlined">menu</span>
         </button>
         <div class="search" role="search"><input id="searchInput" type="text"
-                placeholder="Search laptops, CCTV, accessories…"><button id="searchBtn">Search</button></div>
+                placeholder="Search laptops, CCTV…"><button id="searchBtn">Search</button></div>
         <nav>
             <div class="dropdown">
                 <div class="dropdown-toggle">Categories <span class="material-symbols-outlined"
@@ -1191,7 +1277,7 @@
     </header>
 
     <main>
-        <section class="hero" aria-label="Promotions">
+        <section id="home" class="hero" aria-label="Promotions">
             <div class="slides">
                 <img src="https://pcmart.ae/cdn/shop/articles/Best_Gaming_Laptops.webp?v=1685972919&width=1100"
                     alt="High Performance Gaming PC">
@@ -1208,32 +1294,26 @@
             <h2>Featured Deals <span class="sub">Handpicked from latest listings</span></h2>
             <div id="productsRow" class="row"></div>
         </section>
-
         <section id="shop" class="section">
             <h2>Shop by Category <span class="sub">Explore our curated collections</span></h2>
             <div id="catRow" class="category-gallery"></div>
         </section>
-
         <section id="services" class="section">
             <h2>Our Services <span class="sub">Expert support for all your tech needs</span></h2>
             <div id="servicesRow" class="accordion"></div>
         </section>
-
         <section id="brands" class="section">
             <h2>Trusted Brands <span class="sub">We only work with the best in the industry</span></h2>
             <div id="brandsRow" class="marquee"></div>
         </section>
-
         <section id="policies" class="section">
             <h2>Our Commitment <span class="sub">Your satisfaction is our priority</span></h2>
             <div id="policyRow" class="policy-grid"></div>
         </section>
-
         <section id="blog" class="section">
             <h2>Tutorials & Blog <span class="sub">Learn with our schematic reading series</span></h2>
             <div class="row" id="blogRow"></div>
         </section>
-
         <section id="contact" class="section">
             <h2>Get in Touch <span class="sub">We’re here to help you</span></h2>
             <div id="contact-container" class="contact-container"></div>
@@ -1282,7 +1362,7 @@
     </footer>
 
     <nav class="mobile-bottom-nav">
-        <a href="#" class="nav-link active">
+        <a href="#home" class="nav-link active">
             <span class="material-symbols-outlined">home</span>
             <span class="nav-text">Home</span>
         </a>
@@ -1302,126 +1382,123 @@
 
 
     <script>
-        /* ========= Data updated with saishtechnologies.in info, CORRECTED images and brands ========= */
-        const categories = [
-            { name: "Laptops", count: "New & Used", img: "https://images.unsplash.com/photo-1517336714731-489689fd1ca8?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1452&q=80" },
-            { name: "Gaming Desktops", count: "Custom Builds", img: "https://images.unsplash.com/photo-1593640427655-707a0c93a2d5?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80" },
-            { name: "CCTV & Security", count: "Complete Solutions", img: "https://images.unsplash.com/photo-1617293541278-5a18aa8251f2?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80" },
-            { name: "Printers", count: "Ink, Laser & Toners", img: "https://images.unsplash.com/photo-1612815154802-79323539958a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80" },
-            { name: "Networking", count: "4G Routers & Cables", img: "https://images.unsplash.com/photo-1525547719571-a2d4ac8945e2?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=764&q=80" },
-            { name: "Accessories", count: "Adapters, SSDs & more", img: "https://images.unsplash.com/photo-1555774698-0b77e0abfe79?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80" }
-        ];
-        const products = [
-            { id: 73, name: "Gaming PC: i5-9400, 32GB RAM, 1TB NVMe, RTX 3050", price: 49999, was: 68999, img: "https://dl.djicdn.com/uploads/photos/33139/medium_120b332d-3006-4447-9df1-a831518e19c3.jpg" },
-            { id: 79, name: "Business AIO Desktop: i7 4th Gen, 16GB RAM, 256GB SSD", price: 18999, was: 26999, img: "https://dl.djicdn.com/uploads/photos/33139/medium_120b332d-3006-4447-9df1-a831518e19c3.jpg" },
-            { id: 83, name: "FYBER 300 Mbps 4G Router with SIM Slot", price: 1699, was: 2699, img: "https://dl.djicdn.com/uploads/photos/33139/medium_120b332d-3006-4447-9df1-a831518e19c3.jpg" },
-            { id: 75, name: "Lapcare 20-Inch Bezel-Less Widescreen LED Monitor", price: 2999, was: 3800, img: "https://dl.djicdn.com/uploads/photos/33139/medium_120b332d-3006-4447-9df1-a831518e19c3.jpg" },
-            { id: 91, name: "CP Plus 4G SIM Card Wi-Fi Router CP-XR-DE21-S", price: 1799, was: 2499, img: "https://dl.djicdn.com/uploads/photos/33139/medium_120b332d-3006-4447-9df1-a831518e19c3.jpg" },
-            { id: 25, name: "NPAV Antivirus Pro 1-Year (Email Delivery)", price: 850, was: 850, img: "https://dl.djicdn.com/uploads/photos/33139/medium_120b332d-3006-4447-9df1-a831518e19c3.jpg" },
-            { id: 71, name: "HDMI Switch Box Splitter 3-in-1 Out (High Speed)", price: 450, was: 850, img: "https://dl.djicdn.com/uploads/photos/33139/medium_120b332d-3006-4447-9df1-a831518e19c3.jpg" },
-            { id: 69, name: "5 in 1 Out HDMI Switcher with IR Remote", price: 950, was: 1450, img: "https://dl.djicdn.com/uploads/photos/33139/medium_120b332d-3006-4447-9df1-a831518e19c3.jpg" },
-            { id: 100, name: "Desktop Computer i5, 8GB RAM, 128GB SSD, 19.5\" Monitor", price: 9999, was: 16999, img: "https://dl.djicdn.com/uploads/photos/33139/medium_120b332d-3006-4447-9df1-a831518e19c3.jpg" },
-            { id: 101, name: "FYBER CCTV UPS for 8 Camera System", price: 2999, was: 4999, img: "https://dl.djicdn.com/uploads/photos/33139/medium_120b332d-3006-4447-9df1-a831518e19c3.jpg" },
-            { id: 102, name: "Lapcare USB 2.0 4-Port Hub", price: 349, was: 599, img: "https://dl.djicdn.com/uploads/photos/33139/medium_120b332d-3006-4447-9df1-a831518e19c3.jpg" },
-            { id: 103, name: "Desktop Computer SMPS PS3 450W Power Supply", price: 499, was: 899, img: "https://dl.djicdn.com/uploads/photos/33139/medium_120b332d-3006-4447-9df1-a831518e19c3.jpg" }
-        ];
-        const services = [
-            { icon: "laptop_chromebook", title: "Laptop Repair Services", desc: "Expert diagnostics, screen and battery replacement, performance upgrades, and software troubleshooting for all major brands." },
-            { icon: "desktop_windows", title: "Computer Repair & Builds", desc: "Custom gaming and business desktop builds, operating system installation, data recovery, and complete performance tune-ups." },
-            { icon: "print", title: "Printer Repair Services", desc: "Servicing for both inkjet and laser printers, toner cartridge refilling, maintenance box replacement, and network setup." },
-            { icon: "videocam", title: "CCTV Installation", desc: "Professional site surveys, complete installation for homes and businesses, DVR/NVR setup, and reliable after-sales support." }
-        ];
-        const brands = [
-            { name: "HP", svg: `<svg viewBox="0 0 71 22"><path d="M16.6.21h5.3l-4 15.6H12.6l4-15.6zm11.5 14.1c-.5-.3-.9-.7-1.4-1.1-1.2-1.2-1.8-2.6-1.8-4.3 0-1.2.3-2.3.9-3.3s1.5-1.8 2.6-2.3c1.1-.5 2.3-.7 3.7-.7 1 0 2 .2 2.8.5s1.5.8 2.1 1.3c.3-.5.4-1.1.4-1.7 0-.6-.1-1.2-.4-1.7-.3-.5-.7-.9-1.3-1.2s-1.2-.4-2-.4c-.8 0-1.6.2-2.5.5s-1.4.9-1.8 1.5l-2.4-2.2c.8-.8 1.8-1.5 2.9-1.9s2.2-.6 3.4-.6c2 0 3.7.5 5 1.6s2 2.5 2 4.2v9.3h-3.6c.1-.4.1-.9.1-1.3 0-.6-.1-1.1-.2-1.6h-1.7v4.6c-.8.4-1.7.7-2.8.7-1 0-1.8-.2-2.4-.6zm2.7-8.2c-.7.3-1.2.8-1.7 1.3s-.7 1.2-.7 1.9c0 .8.2 1.5.7 2 .5.6 1.1 1 1.9 1.3.8.3 1.6.4 2.4.4.6 0 1.2-.1 1.8-.3v-3.6c-.3-.3-.8-.6-1.3-.8s-1.1-.3-1.7-.3c-.6 0-1.1.1-1.5.3zM0 21.8h22l-2.3-9L22 3.8H0l2.3 9L0 21.8z"/></svg>` },
-            { name: "Dell", svg: `<svg viewBox="0 0 90 22"><path d="M49.6 21.8c-.5.1-1 .2-1.5.2-1.4 0-2.7-.5-3.7-1.6-1-1.1-1.6-2.5-1.6-4.1V9.8h3.3v4.8c0 1.4.4 2.6 1.3 3.5.9.8 2 1.3 3.4 1.3.5 0 1-.1 1.5-.2v2.4h-1.2zm-13.1 0V19.4c.5.1.9.2 1.4.2 1.4 0 2.6-.6 3.6-1.7s1.5-2.5 1.5-4.3V9.8h3.3v4.8c0 1.7-.5 3.1-1.6 4.2s-2.5 1.6-4.2 1.6c-.5 0-1-.1-1.4-.2v2.4h-2.6zM11 0C4.9 0 0 4.9 0 11s4.9 11 11 11 11-4.9 11-11S17.1 0 11 0zm.2 18.2c-4 0-7.2-3.2-7.2-7.2s3.2-7.2 7.2-7.2 7.2 3.2 7.2 7.2-3.2 7.2-7.2 7.2z"/></svg>` },
-            { name: "Lenovo", svg: `<svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zM8.22 17.5v-11h1.8v11H8.22zm7.56-5.45c0 .6-.14 1.12-.42 1.57-.28.45-.68.8-1.2 1.05-.52.25-1.1.38-1.74.38-.8 0-1.5-.18-2.1-.55v3h-1.8v-11h3.33c.9 0 1.7.13 2.38.4.68.27 1.22.68 1.62 1.23.4.55.6 1.2.6 1.92v.4zm-3.56.8c.4 0 .75-.08 1.05-.23.3-.15.53-.38.7-.68s.25-.65.25-1.05v-.4c0-.4-.08-.75-.25-1.05-.17-.3-.4-.53-.7-.68-.3-.15-.65-.23-1.05-.23h-1.5v4.3h1.5z"/></svg>` },
-            { name: "CP Plus", svg: `<svg viewBox="0 0 24 24"><path d="M12.01 2.5c-4.94 0-8.95 4.01-8.95 8.95s4.01 8.95 8.95 8.95 8.95-4.01 8.95-8.95-4-8.95-8.95-8.95zm0 15.9c-3.84 0-6.95-3.11-6.95-6.95s3.11-6.95 6.95-6.95 6.95 3.11 6.95 6.95-3.11 6.95-6.95 6.95zM12 8.24h2.2v2.21H12zm-3.3 0h2.2v2.21h-2.2zm6.6 3.3h-2.2v2.2h2.2zM8.7 11.54h2.2v2.2h-2.2z"/></svg>` },
-            { name: "Hikvision", svg: `<svg viewBox="0 0 24 24"><path d="M3.5 6.91h2.8v10.18H3.5zm4.2 0h2.8v10.18H7.7zm10-2.38L12.08 9v6.11l5.62-4.49zm-5.6 0L6.48 9v6.11l5.62-4.49z"/></svg>` },
-            { name: "Intel", svg: `<svg viewBox="0 0 24 24"><path d="M4.68 18.8H-.74V5.2h5.42v13.6zm10-13.6v13.6h-5.42V5.2h5.42zM8.94 2.2a.76.76 0 01-.8-.76V.8a.76.76 0 01.8-.76h2.88c2.9 0 4.2 1.08 4.2 3.1v.56a2.8 2.8 0 01-1.3 2.12c1.1.36 1.9 1.24 1.9 2.54v.6c0 2.6-1.6 3.7-4.8 3.7H8.94zM.14 21.8a.76.76 0 01.8-.76h5.88a.76.76 0 01.8.76v.64a.76.76 0 01-.8.76H.94a.8.8 0 01-.8-.76z"/></svg>` },
-            { name: "AMD", svg: `<svg viewBox="0 0 24 24"><path d="M11.64 16.9v-3.32H8.32V9.1h6.64v1.12h-3.32v2.2h3.32v4.48h-3.32zM0 13.58V9.1h3.76l2.08 4.48V9.1h3.32v7.8H5.4L3.32 12.4v4.5H0zm20.68 3.32c-1.2 0-2.2-.4-3-1.2s-1.2-1.8-1.2-3c0-1.2.4-2.2 1.2-3s1.8-1.2 3-1.2c1.2 0 2.2.4 3 1.2s1.2 1.8 1.2 3c0 1.2-.4 2.2-1.2 3s-1.8 1.2-3 1.2zm0-1.12c.92 0 1.7-.3 2.34-.9.64-.6.96-1.4.96-2.4s-.32-1.8-.96-2.4c-.64-.6-1.42-.9-2.34-.9s-1.7.3-2.34.9c-.64.6-.96 1.4-.96 2.4s.32 1.8.96 2.4c.64.6 1.42.9 2.34.9z"/></svg>` }
-        ];
-        const policies = [
-            { icon: "local_shipping", title: "Secure Shipping", desc: "Fast, reliable, and insured shipping on all orders across Maharashtra." },
-            { icon: "security", title: "DOA Return Policy", desc: "Dead-on-arrival? We offer a free replacement after a swift inspection." },
-            { icon: "verified_user", title: "Genuine Products", desc: "We guarantee 100% authentic products sourced from trusted distributors." },
-            { icon: "support_agent", title: "Expert Support", desc: "Our experienced team is ready to assist you with any query before or after your purchase." }
-        ];
-        const blogs = [
-            { t: "Laptop Schematic Reading — Part 05", url: "https://www.youtube.com/watch?v=wTY0Ic0huJc", img: "https://i.ytimg.com/vi/wTY0Ic0huJc/hqdefault.jpg" },
-            { t: "Understanding Motherboard Power Rails — Part 04", url: "https://www.youtube.com/watch?v=wI9WZc0huJc", img: "https://i.ytimg.com/vi/wI9WZc0huJc/hqdefault.jpg" },
-            { t: "Diagnosing a No-Display Fault — Part 03", url: "https://www.youtube.com/watch?v=o_mh3WbRySs", img: "https://i.ytimg.com/vi/o_mh3WbRySs/hqdefault.jpg" },
-            { t: "How to Choose the Right SSD for Your Laptop", url: "https://saishtechnologies.in/blog/", img: "https://images.unsplash.com/photo-1593642702821-c8da6771f0c6?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1332&q=80" }
-        ];
+        /* ========= Data ========= */
+        const categories = [{ name: "Laptops", count: "New & Used", img: "https://www.amd.com/content/dam/amd/en/images/products/laptops/3292900-amd-laptop-game.png" },
+        { name: "Gaming Desktops", count: "Custom Builds", img: "https://www.amd.com/content/dam/amd/en/images/products/laptops/3292900-amd-laptop-game.png" },
+        { name: "CCTV & Security", count: "Complete Solutions", img: "https://www.amd.com/content/dam/amd/en/images/products/laptops/3292900-amd-laptop-game.png" },
+        { name: "Printers", count: "Ink, Laser & Toners", img: "https://www.amd.com/content/dam/amd/en/images/products/laptops/3292900-amd-laptop-game.png" },
+        { name: "Networking", count: "4G Routers & Cables", img: "https://www.amd.com/content/dam/amd/en/images/products/laptops/3292900-amd-laptop-game.png" },
+        { name: "Accessories", count: "Adapters, SSDs & more", img: "https://www.amd.com/content/dam/amd/en/images/products/laptops/3292900-amd-laptop-game.png" }];
+        const products = [{ id: 73, name: "Gaming PC: i5-9400, 32GB RAM, 1TB NVMe, RTX 3050", price: 49999, was: 68999, img: "https://www.amd.com/content/dam/amd/en/images/products/laptops/3292900-amd-laptop-game.png" },
+        { id: 79, name: "Business AIO Desktop: i7 4th Gen, 16GB RAM, 256GB SSD", price: 18999, was: 26999, img: "https://www.amd.com/content/dam/amd/en/images/products/laptops/3292900-amd-laptop-game.png" },
+        { id: 83, name: "FYBER 300 Mbps 4G Router with SIM Slot", price: 1699, was: 2699, img: "https://www.amd.com/content/dam/amd/en/images/products/laptops/3292900-amd-laptop-game.png" },
+        { id: 75, name: "Lapcare 20-Inch Bezel-Less Widescreen LED Monitor", price: 2999, was: 3800, img: "https://www.amd.com/content/dam/amd/en/images/products/laptops/3292900-amd-laptop-game.png" },
+        { id: 91, name: "CP Plus 4G SIM Card Wi-Fi Router CP-XR-DE21-S", price: 1799, was: 2499, img: "https://www.amd.com/content/dam/amd/en/images/products/laptops/3292900-amd-laptop-game.png" },
+        { id: 25, name: "NPAV Antivirus Pro 1-Year (Email Delivery)", price: 850, was: 850, img: "https://www.amd.com/content/dam/amd/en/images/products/laptops/3292900-amd-laptop-game.png" },
+        { id: 71, name: "HDMI Switch Box Splitter 3-in-1 Out (High Speed)", price: 450, was: 850, img: "https://www.amd.com/content/dam/amd/en/images/products/laptops/3292900-amd-laptop-game.png" },
+        { id: 69, name: "5 in 1 Out HDMI Switcher with IR Remote", price: 950, was: 1450, img: "https://www.amd.com/content/dam/amd/en/images/products/laptops/3292900-amd-laptop-game.png" },
+        { id: 100, name: "Desktop Computer i5, 8GB RAM, 128GB SSD, 19.5\" Monitor", price: 9999, was: 16999, img: "https://www.amd.com/content/dam/amd/en/images/products/laptops/3292900-amd-laptop-game.png" },
+        { id: 101, name: "FYBER CCTV UPS for 8 Camera System", price: 2999, was: 4999, img: "https://www.amd.com/content/dam/amd/en/images/products/laptops/3292900-amd-laptop-game.png" },
+        { id: 102, name: "Lapcare USB 2.0 4-Port Hub", price: 349, was: 599, img: "https://www.amd.com/content/dam/amd/en/images/products/laptops/3292900-amd-laptop-game.png" },
+        { id: 103, name: "Desktop Computer SMPS PS3 450W Power Supply", price: 499, was: 899, img: "https://www.amd.com/content/dam/amd/en/images/products/laptops/3292900-amd-laptop-game.png" }];
+        const services = [{ icon: "laptop_chromebook", title: "Laptop Repair Services", desc: "Expert diagnostics, screen and battery replacement, performance upgrades, and software troubleshooting for all major brands." }, { icon: "desktop_windows", title: "Computer Repair & Builds", desc: "Custom gaming and business desktop builds, operating system installation, data recovery, and complete performance tune-ups." },
+        { icon: "print", title: "Printer Repair Services", desc: "Servicing for both inkjet and laser printers, toner cartridge refilling, maintenance box replacement, and network setup." }, { icon: "videocam", title: "CCTV Installation", desc: "Professional site surveys, complete installation for homes and businesses, DVR/NVR setup, and reliable after-sales support." }];
+        const brands = [{ name: "HP", svg: `<svg viewBox="0 0 71 22"><path d="M16.6.21h5.3l-4 15.6H12.6l4-15.6zm11.5 14.1c-.5-.3-.9-.7-1.4-1.1-1.2-1.2-1.8-2.6-1.8-4.3 0-1.2.3-2.3.9-3.3s1.5-1.8 2.6-2.3c1.1-.5 2.3-.7 3.7-.7 1 0 2 .2 2.8.5s1.5.8 2.1 1.3c.3-.5.4-1.1.4-1.7 0-.6-.1-1.2-.4-1.7-.3-.5-.7-.9-1.3-1.2s-1.2-.4-2-.4c-.8 0-1.6.2-2.5.5s-1.4.9-1.8 1.5l-2.4-2.2c.8-.8 1.8-1.5 2.9-1.9s2.2-.6 3.4-.6c2 0 3.7.5 5 1.6s2 2.5 2 4.2v9.3h-3.6c.1-.4.1-.9.1-1.3 0-.6-.1-1.1-.2-1.6h-1.7v4.6c-.8.4-1.7.7-2.8.7-1 0-1.8-.2-2.4-.6zm2.7-8.2c-.7.3-1.2.8-1.7 1.3s-.7 1.2-.7 1.9c0 .8.2 1.5.7 2 .5.6 1.1 1 1.9 1.3.8.3 1.6.4 2.4.4.6 0 1.2-.1 1.8-.3v-3.6c-.3-.3-.8-.6-1.3-.8s-1.1-.3-1.7-.3c-.6 0-1.1.1-1.5.3zM0 21.8h22l-2.3-9L22 3.8H0l2.3 9L0 21.8z"/></svg>` },
+        { name: "Dell", svg: `<svg viewBox="0 0 90 22"><path d="M49.6 21.8c-.5.1-1 .2-1.5.2-1.4 0-2.7-.5-3.7-1.6-1-1.1-1.6-2.5-1.6-4.1V9.8h3.3v4.8c0 1.4.4 2.6 1.3 3.5.9.8 2 1.3 3.4 1.3.5 0 1-.1 1.5-.2v2.4h-1.2zm-13.1 0V19.4c.5.1.9.2 1.4.2 1.4 0 2.6-.6 3.6-1.7s1.5-2.5 1.5-4.3V9.8h3.3v4.8c0 1.7-.5 3.1-1.6 4.2s-2.5 1.6-4.2 1.6c-.5 0-1-.1-1.4-.2v2.4h-2.6zM11 0C4.9 0 0 4.9 0 11s4.9 11 11 11 11-4.9 11-11S17.1 0 11 0zm.2 18.2c-4 0-7.2-3.2-7.2-7.2s3.2-7.2 7.2-7.2 7.2 3.2 7.2 7.2-3.2 7.2-7.2 7.2z"/></svg>` },
+        { name: "Lenovo", svg: `<svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zM8.22 17.5v-11h1.8v11H8.22zm7.56-5.45c0 .6-.14 1.12-.42 1.57-.28.45-.68.8-1.2 1.05-.52.25-1.1.38-1.74.38-.8 0-1.5-.18-2.1-.55v3h-1.8v-11h3.33c.9 0 1.7.13 2.38.4.68.27 1.22.68 1.62 1.23.4.55.6 1.2.6 1.92v.4zm-3.56.8c.4 0 .75-.08 1.05-.23.3-.15.53-.38.7-.68s.25-.65.25-1.05v-.4c0-.4-.08-.75-.25-1.05-.17-.3-.4-.53-.7-.68-.3-.15-.65-.23-1.05-.23h-1.5v4.3h1.5z"/></svg>` },
+        { name: "CP Plus", svg: `<svg viewBox="0 0 24 24"><path d="M12.01 2.5c-4.94 0-8.95 4.01-8.95 8.95s4.01 8.95 8.95 8.95 8.95-4.01 8.95-8.95-4-8.95-8.95-8.95zm0 15.9c-3.84 0-6.95-3.11-6.95-6.95s3.11-6.95 6.95-6.95 6.95 3.11 6.95 6.95-3.11 6.95-6.95 6.95zM12 8.24h2.2v2.21H12zm-3.3 0h2.2v2.21h-2.2zm6.6 3.3h-2.2v2.2h2.2zM8.7 11.54h2.2v2.2h-2.2z"/></svg>` }, { name: "Hikvision", svg: `<svg viewBox="0 0 24 24"><path d="M3.5 6.91h2.8v10.18H3.5zm4.2 0h2.8v10.18H7.7zm10-2.38L12.08 9v6.11l5.62-4.49zm-5.6 0L6.48 9v6.11l5.62-4.49z"/></svg>` }, { name: "Intel", svg: `<svg viewBox="0 0 24 24"><path d="M4.68 18.8H-.74V5.2h5.42v13.6zm10-13.6v13.6h-5.42V5.2h5.42zM8.94 2.2a.76.76 0 01-.8-.76V.8a.76.76 0 01.8-.76h2.88c2.9 0 4.2 1.08 4.2 3.1v.56a2.8 2.8 0 01-1.3 2.12c1.1.36 1.9 1.24 1.9 2.54v.6c0 2.6-1.6 3.7-4.8 3.7H8.94zM.14 21.8a.76.76 0 01.8-.76h5.88a.76.76 0 01.8.76v.64a.76.76 0 01-.8.76H.94a.8.8 0 01-.8-.76z"/></svg>` },
+        { name: "AMD", svg: `<svg viewBox="0 0 24 24"><path d="M11.64 16.9v-3.32H8.32V9.1h6.64v1.12h-3.32v2.2h3.32v4.48h-3.32zM0 13.58V9.1h3.76l2.08 4.48V9.1h3.32v7.8H5.4L3.32 12.4v4.5H0zm20.68 3.32c-1.2 0-2.2-.4-3-1.2s-1.2-1.8-1.2-3c0-1.2.4-2.2 1.2-3s1.8-1.2 3-1.2c1.2 0 2.2.4 3 1.2s1.2 1.8 1.2 3c0 1.2-.4 2.2-1.2 3s-1.8 1.2-3 1.2zm0-1.12c.92 0 1.7-.3 2.34-.9.64-.6.96-1.4.96-2.4s-.32-1.8-.96-2.4c-.64-.6-1.42-.9-2.34-.9s-1.7.3-2.34.9c-.64.6-.96 1.4-.96 2.4s.32 1.8.96 2.4c.64.6 1.42.9 2.34.9z"/></svg>` }];
+        const policies = [{ icon: "local_shipping", title: "Secure Shipping", desc: "Fast, reliable, and insured shipping on all orders across Maharashtra." }, { icon: "security", title: "DOA Return Policy", desc: "Dead-on-arrival? We offer a free replacement after a swift inspection." }, { icon: "verified_user", title: "Genuine Products", desc: "We guarantee 100% authentic products sourced from trusted distributors." }, { icon: "support_agent", title: "Expert Support", desc: "Our experienced team is ready to assist you with any query before or after your purchase." }];
+        const blogs = [{ t: "Laptop Schematic Reading — Part 05", url: "https://www.youtube.com/watch?v=wTY0Ic0huJc", img: "https://i.ytimg.com/vi/wTY0Ic0huJc/hqdefault.jpg" }, { t: "Understanding Motherboard Power Rails — Part 04", url: "https://www.youtube.com/watch?v=wI9WZc0huJc", img: "https://i.ytimg.com/vi/wI9WZc0huJc/hqdefault.jpg" }, { t: "Diagnosing a No-Display Fault — Part 03", url: "https://www.youtube.com/watch?v=o_mh3WbRySs", img: "https://i.ytimg.com/vi/o_mh3WbRySs/hqdefault.jpg" }, { t: "How to Choose the Right SSD for Your Laptop", url: "https://saishtechnologies.in/blog/", img: "https://images.unsplash.com/photo-1593642702821-c8da6771f0c6?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1332&q=80" }];
 
         /* ========= Render Helpers & Logic ========= */
-        const el = (html) => { const t = document.createElement('template'); t.innerHTML = html.trim(); return t.content.firstChild; };
-        function money(n) { return "₹" + n.toLocaleString('en-IN'); }
+        document.addEventListener('DOMContentLoaded', () => {
+            const el = (html) => { const t = document.createElement('template'); t.innerHTML = html.trim(); return t.content.firstChild; };
+            function money(n) { return "₹" + n.toLocaleString('en-IN'); }
+            document.getElementById('catRow').innerHTML = categories.map(c => `<a href="#" target="_blank" class="category-card"><img src="${c.img}" alt="${c.name}" class="bg-img"><div class="overlay"></div><div class="content"><b>${c.name}</b><small>${c.count}</small></div></a>`).join('');
+            const servicesRow = document.getElementById('servicesRow');
+            services.forEach(s => { const item = el(`<div class="accordion-item"><div class="accordion-header"><span class="material-symbols-outlined icon">${s.icon}</span><span>${s.title}</span><span class="material-symbols-outlined indicator">expand_more</span></div><div class="accordion-content"><p>${s.desc}</p></div></div>`); item.querySelector('.accordion-header').addEventListener('click', () => { item.classList.toggle('active'); const content = item.querySelector('.accordion-content'); if (item.classList.contains('active')) { content.style.maxHeight = content.scrollHeight + "px"; } else { content.style.maxHeight = 0; } }); servicesRow.appendChild(item); });
+            const brandsRow = document.getElementById('brandsRow'); const marqueeContent = document.createElement('div'); marqueeContent.className = 'marquee-content'; const brandHTML = brands.map(b => `<div class="brand-logo" title="${b.name}">${b.svg}</div>`).join(''); marqueeContent.innerHTML = brandHTML + brandHTML; brandsRow.appendChild(marqueeContent);
+            document.getElementById('policyRow').innerHTML = policies.map(p => `<a href="#" target="_blank" class="policy-card"><span class="material-symbols-outlined icon">${p.icon}</span><h3>${p.title}</h3><p>${p.desc}</p></a>`).join('');
+            document.getElementById('contact-container').innerHTML = `<div class="contact-info"><h3>Contact Information</h3><p><span class="material-symbols-outlined icon">location_on</span><span>Shop No.14, GKDS Complex, Railway Station Road, Kopargaon, Ahmednagar</span></p><p><span class="material-symbols-outlined icon">call</span><a href="tel:+919890449388">98904 49388</a>, <a href="tel:+919404518098">94045 18098</a></p><p>
+                <span class="material-symbols-outlined icon">schedule</span><span>Mon - Sat: 10:00 AM - 9:00 PM</span></p><a href="tel:+919890449388" class="btn primary"><span class="material-symbols-outlined">call</span> Call Us Directly</a></div><div class="contact-map"><iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3758.336982880928!2d74.48121231539266!3d19.89759898653658!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bdc5c9e295b9a89%3A0x62572483582441d5!2sSaish%20Technologies!5e0!3m2!1sen!2sin!4v1678886055562!5m2!1sen!2sin" loading="lazy"></iframe></div>`;
 
-        document.getElementById('catRow').innerHTML = categories.map(c => `<a href="https://saishtechnologies.in/shop" target="_blank" class="category-card"><img src="${c.img}" alt="${c.name}" class="bg-img"><div class="overlay"></div><div class="content"><b>${c.name}</b><small>${c.count}</small></div></a>`).join('');
-        const servicesRow = document.getElementById('servicesRow');
-        services.forEach(s => {
-            const item = el(`<div class="accordion-item"><div class="accordion-header"><span class="material-symbols-outlined icon">${s.icon}</span><span>${s.title}</span><span class="material-symbols-outlined indicator">expand_more</span></div><div class="accordion-content"><p>${s.desc}</p></div></div>`);
-            item.querySelector('.accordion-header').addEventListener('click', () => { item.classList.toggle('active'); const content = item.querySelector('.accordion-content'); if (item.classList.contains('active')) { content.style.maxHeight = content.scrollHeight + "px"; } else { content.style.maxHeight = 0; } });
-            servicesRow.appendChild(item);
-        });
-        const brandsRow = document.getElementById('brandsRow'); const marqueeContent = document.createElement('div'); marqueeContent.className = 'marquee-content'; const brandHTML = brands.map(b => `<div class="brand-logo" title="${b.name}">${b.svg}</div>`).join(''); marqueeContent.innerHTML = brandHTML + brandHTML; brandsRow.appendChild(marqueeContent);
-        document.getElementById('policyRow').innerHTML = policies.map(p => `<a href="https://saishtechnologies.in/return-policy/" target="_blank" class="policy-card"><span class="material-symbols-outlined icon">${p.icon}</span><h3>${p.title}</h3><p>${p.desc}</p></a>`).join('');
-        document.getElementById('contact-container').innerHTML = `<div class="contact-info"><h3>Contact Information</h3><p><span class="material-symbols-outlined icon">location_on</span><span>Shop No.14, GKDS Complex, Railway Station Road, Kopargaon, Dist. Ahmednagar, Maharashtra</span></p><p><span class="material-symbols-outlined icon">call</span><a href="tel:+919890449388">98904 49388</a>, <a href="tel:+919404518098">94045 18098</a></p><p><span class="material-symbols-outlined icon">schedule</span><span>Mon - Sat: 10:00 AM - 9:00 PM</span></p><a href="tel:+919890449388" class="btn primary"><span class="material-symbols-outlined">call</span> Call Us Directly</a></div><div class="contact-map"><iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3748.196342838234!2d74.4828138154034!3d20.04230202573752!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bdc5b5a83774b79%3A0x7d28c3a1e12a43ab!2sSaish%20Technologies!5e0!3m2!1sen!2sin!4v1668581638843!5m2!1sen!2sin" loading="lazy"></iframe></div>`;
-        const productsRow = document.getElementById('productsRow');
-        function renderProducts(list) {
-            productsRow.innerHTML = "";
-            if (list.length === 0) { productsRow.innerHTML = `<div style="grid-column: span 12; text-align: center; color: var(--muted); padding: 40px;">No products found.</div>`; return; }
-            list.forEach(p => { productsRow.appendChild(el(`<div class="card"><a class="media" href="#" target="_blank" rel="noopener" aria-label="${p.name}"><img src="${p.img}" alt="${p.name}"></a><div class="body"><div class="title">${p.name}</div><div class="price"><span class="now">${money(p.price)}</span>${p.was && p.was > p.price ? `<span class="was">${money(p.was)}</span>` : ''}</div><div class="meta"><span>In stock</span><span>★ 4.6</span></div><div class="card-actions"><button class="btn primary" onclick="addToCart(${p.id})">Add to Cart</button><button class="btn outline" onclick="window.open('#','_blank')">Details</button></div></div></div>`)); });
-        }
-        renderProducts(products);
-        const blogRow = document.getElementById('blogRow');
-        blogs.forEach(b => { blogRow.appendChild(el(`<a class="card" style="text-decoration:none" href="${b.url}" target="_blank" rel="noopener"><div class="media"><img src="${b.img}" alt="${b.t}"></div><div class="body"><div class="title">${b.t}</div><div class="card-actions" style="margin-top: auto; display: block;"><button class="btn primary"><span class="material-symbols-outlined">play_circle</span> Watch on YouTube</button></div></div></a>`)); });
+            const productsRow = document.getElementById('productsRow');
+            function renderProducts(list) {
+                productsRow.innerHTML = ""; if (list.length === 0) { productsRow.innerHTML = `<div style="grid-column: span 12; text-align: center; color: var(--muted); padding: 40px;">No products found.</div>`; return; }
+                list.forEach(p => {
+                    const productCard = el(`<div class="card">
+                        <a class="media" href="#" target="_blank" rel="noopener" aria-label="${p.name}"><img src="${p.img}" alt="${p.name}"></a>
+                        <div class="body">
+                            <div class="title">${p.name}</div>
+                            <div class="price">
+                                <span class="now">${money(p.price)}</span>
+                                ${p.was && p.was > p.price ? `<span class="was">${money(p.was)}</span>` : ''}
+                            </div>
+                            <div class="meta"><span>In stock</span><span>★ 4.6</span></div>
+                            <div class="card-actions">
+                                <button class="btn primary add-to-cart-btn" data-id="${p.id}">Add to Cart</button>
+                                <button class="btn outline" onclick="window.open('#','_blank')">Details</button>
+                            </div>
+                        </div>
+                    </div>`);
+                    productCard.querySelector('.add-to-cart-btn').addEventListener('click', (e) => addToCart(p.id, e.target));
+                    productsRow.appendChild(productCard);
+                });
+            }
+            renderProducts(products);
 
-        let CART = []; const drawer = document.getElementById('drawer'); function toggleCart() { drawer.classList.toggle('active') } function addToCart(id) { const item = products.find(x => x.id === id); CART.push(item); document.getElementById('cartCount').textContent = CART.length; renderCart(); if (!drawer.classList.contains('active')) toggleCart(); }
-        function renderCart() { const list = document.getElementById('cartItems'); if (CART.length === 0) { list.className = 'empty'; list.textContent = 'Your cart is empty.'; document.getElementById('cartTotal').textContent = '₹0'; return } list.className = ''; list.innerHTML = ''; let total = 0; CART.forEach((c, i) => { total += c.price; list.appendChild(el(`<div class="cart-item"><span style="flex:1; font-size: 14px;">${c.name}</span><b>${money(c.price)}</b><button class="btn outline" style="padding:6px 10px" onclick="removeFromCart(${i})">✕</button></div>`)); }); document.getElementById('cartTotal').textContent = money(total); }
-        function removeFromCart(index) { CART.splice(index, 1); document.getElementById('cartCount').textContent = CART.length; renderCart(); }
+            const blogRow = document.getElementById('blogRow');
+            blogs.forEach(b => { blogRow.appendChild(el(`<a class="card" style="text-decoration:none" href="${b.url}" target="_blank" rel="noopener"><div class="media"><img src="${b.img}" alt="${b.t}"></div><div class="body"><div class="title">${b.t}
+                </div><div class="card-actions" style="margin-top: auto; display: block;"><button class="btn primary"><span class="material-symbols-outlined">play_circle</span> Watch on YouTube</button></div></div></a>`)); });
+            let CART = []; const drawer = document.getElementById('drawer');
+            const cartCountEl = document.getElementById('cartCount');
+            window.toggleCart = () => drawer.classList.toggle('active');
 
-        const input = document.getElementById('searchInput'); const searchBtn = document.getElementById('searchBtn'); function runSearch() { const q = input.value.trim().toLowerCase(); if (!q) { renderProducts(products); return } const pool = products.concat(); const filt = pool.filter(p => p.name.toLowerCase().includes(q)); renderProducts(filt); } input.addEventListener('input', runSearch); searchBtn.addEventListener('click', runSearch);
+            // UPDATED: addToCart with visual feedback
+            window.addToCart = (id, button) => {
+                const item = products.find(x => x.id === id);
+                CART.push(item);
+                cartCountEl.textContent = CART.length;
+                renderCart();
+                if (!drawer.classList.contains('active')) toggleCart();
 
-        let countdownDate = Date.now() + 6 * 60 * 60 * 1000; const cd = document.getElementById('countdown'); setInterval(() => { const d = countdownDate - Date.now(); if (d <= 0) { cd.textContent = 'Expired'; return } const h = Math.floor(d / (1000 * 60 * 60)); const m = Math.floor((d % (1000 * 60 * 60)) / (1000 * 60)); const s = Math.floor((d % (1000 * 60)) / 1000); cd.textContent = `${h}h ${m}m ${s}s`; }, 1000);
+                button.textContent = 'Added ✓';
+                button.classList.add('added');
+                button.disabled = true;
+                setTimeout(() => {
+                    button.textContent = 'Add to Cart';
+                    button.classList.remove('added');
+                    button.disabled = false;
+                }, 1500);
+            }
 
-        const themeToggleBtn = document.getElementById('theme-toggle-btn');
-        const root = document.documentElement; const currentTheme = localStorage.getItem('theme') || 'dark'; root.setAttribute('data-theme', currentTheme);
-        const darkIcon = document.getElementById('dark-icon');
-        const lightIcon = document.getElementById('light-icon'); function updateIcons(theme) { if (theme === 'dark') { darkIcon.classList.add('active'); lightIcon.classList.remove('active'); } else { darkIcon.classList.remove('active'); lightIcon.classList.add('active'); } } updateIcons(currentTheme); themeToggleBtn.addEventListener('click', () => {
-            const newTheme = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark'; root.setAttribute('data-theme', newTheme); updateIcons(newTheme); localStorage.setItem('theme', newTheme);
-        });
+            function renderCart() { const list = document.getElementById('cartItems'); if (CART.length === 0) { list.className = 'empty'; list.textContent = 'Your cart is empty.'; document.getElementById('cartTotal').textContent = '₹0'; return } list.className = ''; list.innerHTML = ''; let total = 0; CART.forEach((c, i) => { total += c.price; const cartItemEl = el(`<div class="cart-item"><span style="flex:1; font-size: 14px;">${c.name}</span><b>${money(c.price)}</b><button class="btn outline" style="padding:6px 10px">✕</button></div>`); 
+            cartItemEl.querySelector('button').addEventListener('click', () => removeFromCart(i)); list.appendChild(cartItemEl); }); document.getElementById('cartTotal').textContent = money(total); }
+            function removeFromCart(index) { CART.splice(index, 1); cartCountEl.textContent = CART.length; renderCart(); }
+            const input = document.getElementById('searchInput'); const searchBtn = document.getElementById('searchBtn'); function runSearch() { const q = input.value.trim().toLowerCase(); if (!q) { renderProducts(products); return } const pool = products.concat(); const filt = pool.filter(p => p.name.toLowerCase().includes(q)); renderProducts(filt); } input.addEventListener('input', runSearch); searchBtn.addEventListener('click', runSearch);
+            let countdownDate = Date.now() + 6 * 60 * 60 * 1000; const cd = document.getElementById('countdown'); setInterval(() => { const d = countdownDate - Date.now(); if (d <= 0) { cd.textContent = 'Expired'; return } const h = Math.floor(d / 3600000); const m = Math.floor((d % 3600000) / 60000); const s = Math.floor((d % 60000) / 1000); cd.textContent = `${h}h ${m}m ${s}s`; }, 1000);
 
-        // ===== Hamburger Menu Logic (for Tablet) =====
-        const menuBtn = document.getElementById('menu-btn');
-        const desktopNav = document.querySelector('header nav');
-        const mobileNavContainer = el(`<div class="mobile-nav"></div>`);
-        const backdrop = el(`<div class="backdrop"></div>`);
-        document.body.appendChild(mobileNavContainer);
-        document.body.appendChild(backdrop);
+            const themeToggleBtn = document.getElementById('theme-toggle-btn'); const root = document.documentElement; const currentTheme = localStorage.getItem('theme') || 'dark'; root.setAttribute('data-theme', currentTheme);
+            const darkIcon = document.getElementById('dark-icon'); const lightIcon = document.getElementById('light-icon'); function updateIcons(theme) { if (theme === 'dark') { darkIcon.classList.add('active'); lightIcon.classList.remove('active'); } else { darkIcon.classList.remove('active'); lightIcon.classList.add('active'); } } updateIcons(currentTheme); themeToggleBtn.addEventListener('click', 
+            () => { const newTheme = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark'; root.setAttribute('data-theme', newTheme); updateIcons(newTheme); localStorage.setItem('theme', newTheme); });
 
-        const brandClone = document.querySelector('.brand').cloneNode(true);
-        mobileNavContainer.appendChild(brandClone);
+            const menuBtn = document.getElementById('menu-btn'); const desktopNav = document.querySelector('header nav'); const mobileNavContainer = el(`<div class="mobile-nav"></div>`); const backdrop = el(`<div class="backdrop"></div>`); document.body.appendChild(mobileNavContainer); document.body.appendChild(backdrop);
+            const brandClone = document.querySelector('.brand').cloneNode(true); mobileNavContainer.appendChild(brandClone);
+            const navLinks = desktopNav.querySelectorAll('.dropdown'); navLinks.forEach(dropdown => { const links = dropdown.querySelectorAll('.dropdown-menu a'); links.forEach(link => { const clonedLink = link.cloneNode(true); mobileNavContainer.appendChild(clonedLink); }); });
+            function toggleMenu() { mobileNavContainer.classList.toggle('active'); backdrop.classList.toggle('active'); }
+            menuBtn.addEventListener('click', toggleMenu); backdrop.addEventListener('click', toggleMenu);
+            mobileNavContainer.querySelectorAll('a').forEach(link => { link.addEventListener('click', toggleMenu); });
 
-        const navLinks = desktopNav.querySelectorAll('.dropdown');
-        navLinks.forEach(dropdown => {
-            const links = dropdown.querySelectorAll('.dropdown-menu a');
-            links.forEach(link => {
-                const clonedLink = link.cloneNode(true);
-                mobileNavContainer.appendChild(clonedLink);
-            });
-        });
+            const bottomNavLinks = document.querySelectorAll('.mobile-bottom-nav .nav-link');
+            bottomNavLinks.forEach(link => { link.addEventListener('click', function () { bottomNavLinks.forEach(l => l.classList.remove('active')); this.classList.add('active'); }); });
 
-        function toggleMenu() {
-            mobileNavContainer.classList.toggle('active');
-            backdrop.classList.toggle('active');
-        }
-
-        menuBtn.addEventListener('click', toggleMenu);
-        backdrop.addEventListener('click', toggleMenu);
-
-        mobileNavContainer.querySelectorAll('a').forEach(link => {
-            link.addEventListener('click', toggleMenu);
+            // --- Pre-loader Logic ---
+            const preloader = document.getElementById('preloader');
+            setTimeout(() => {
+                preloader.classList.add('fade-out');
+                document.body.classList.remove('loading');
+            }, 4000);
         });
     </script>
 </body>
